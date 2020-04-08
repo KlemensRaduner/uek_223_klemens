@@ -398,6 +398,29 @@ paths:
         404:
           description: Not Found
       deprecated: false
+  /salaryGreaterThanOrEqual/{salary}:
+    get:
+      tags:
+        - UserController
+      summary: 'Returns a list of users with a salary equal or greater than the provided salary'
+      produces:
+        - application/json
+      parameters:
+        - name: salary
+          in: path
+          description: 'Minimum salary of the requested entities'
+          required: true
+          type: number
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/UserDTO'
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
 
 # All the DTOs
 definitions:
@@ -458,6 +481,9 @@ definitions:
       password:
         type: string
         example: 'youshouldNotPutAPasswordHere'
+      salary:
+        type: number
+        example: 5999.99
       enabled:
         type: boolean
         example: true

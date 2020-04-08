@@ -49,6 +49,11 @@ public class UserController {
         return new ResponseEntity<>(userMapper.toDTO(userService.findById(id)), HttpStatus.OK);
     }
 
+    @GetMapping("/salaryGreaterThanOrEqual/{salary}")
+    public ResponseEntity<List<UserDTO>> getBySalaryGreaterThanOrEqual(@PathVariable Float salary){
+        return new ResponseEntity<>(userMapper.toDTOs(userService.findBySalaryGreaterThanOrEqual(salary)),HttpStatus.OK);
+    }
+
     // This endpoint updates an existing user with the id and data given
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateById(@PathVariable String id, @RequestBody UserDTO userDTO) {

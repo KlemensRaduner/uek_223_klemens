@@ -36,7 +36,7 @@ public class Auction {
     @JoinColumn(name = "article", referencedColumnName = "id")
     private Article article;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "auction_bid",
             joinColumns = @JoinColumn(name = "auction_id"),

@@ -16,6 +16,8 @@ public class UserDTO {
 
     private String password;
 
+    private Float salary;
+
     private Set<Role> roles;
 
     private Boolean locked;
@@ -51,6 +53,14 @@ public class UserDTO {
     public UserDTO setPassword(String password) {
         this.password = password;
         return this;
+    }
+
+    public Float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Float salary) {
+        this.salary = salary;
     }
 
     public Set<Role> getRoles() {

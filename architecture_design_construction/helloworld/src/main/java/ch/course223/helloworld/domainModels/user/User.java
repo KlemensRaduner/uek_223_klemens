@@ -1,10 +1,12 @@
 package ch.course223.helloworld.domainModels.user;
 
+import ch.course223.helloworld.domainModels.auction.Auction;
 import ch.course223.helloworld.domainModels.role.Role;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
@@ -60,8 +62,24 @@ public class User {
     )
     private Set<Role> roles;
 
-    // TODO, create attribute once the auction entity has been made
-    //private List<Auction> auctions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_auction",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "auction_id")
+    )
+    private Set<Auction> auctions;
+
+    @Column(name = "salary")
+    private float salary;
+
+    // Simple column annotation without naming
+    @Column
+    private Boolean locked;
+
+    // Simple column annotation without naming
+    @Column
+    private Boolean enabled;
 
     // Attributes necessary for use in a spring boot environment
     // Simple column annotation with naming
@@ -72,20 +90,9 @@ public class User {
     @Column(name = "credentials_expiration_date")
     private LocalDate credentialsExpirationDate;
 
-    // Simple column annotation without naming
-    @Column
-    // This annotation defines as what kind of data type this attribute should be persisted at in the database
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean locked;
-
-    // Simple column annotation without naming
-    @Column
-    // This annotation defines as what kind of data type this attribute should be persisted at in the database
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean enabled;
-
     // Standard empty constructor
-    public User() {}
+    public User() {
+    }
 
     // Getters and setters
     public String getId() {
@@ -115,6 +122,14 @@ public class User {
         return this;
     }
 
+    public float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -124,31 +139,12 @@ public class User {
         return this;
     }
 
-    // TODO, create getters and setters once the auction entity has been created
-    // public List<Auction> getAuctions() {
-    //    return auctions;
-    // }
-
-    // public User setAuctions(List<Auction> auctions) {
-    //     this.auctions = auctions;
-    //     return this;
-    // }
-
-    public LocalDate getAccountExpirationDate() {
-        return accountExpirationDate;
+    public Set<Auction> getAuctions() {
+        return auctions;
     }
 
-    public User setAccountExpirationDate(LocalDate accountExpirationDate) {
-        this.accountExpirationDate = accountExpirationDate;
-        return this;
-    }
-
-    public LocalDate getCredentialsExpirationDate() {
-        return credentialsExpirationDate;
-    }
-
-    public User setCredentialsExpirationDate(LocalDate credentialsExpirationDate) {
-        this.credentialsExpirationDate = credentialsExpirationDate;
+    public User setAuctions(Set<Auction> auctions) {
+        this.auctions = auctions;
         return this;
     }
 
@@ -167,6 +163,23 @@ public class User {
 
     public User setEnabled(Boolean enabled) {
         this.enabled = enabled;
+        return this;
+    }
+    public LocalDate getAccountExpirationDate() {
+        return accountExpirationDate;
+    }
+
+    public User setAccountExpirationDate(LocalDate accountExpirationDate) {
+        this.accountExpirationDate = accountExpirationDate;
+        return this;
+    }
+
+    public LocalDate getCredentialsExpirationDate() {
+        return credentialsExpirationDate;
+    }
+
+    public User setCredentialsExpirationDate(LocalDate credentialsExpirationDate) {
+        this.credentialsExpirationDate = credentialsExpirationDate;
         return this;
     }
 

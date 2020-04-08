@@ -15,6 +15,8 @@ public interface UserService extends UserDetailsService {
 
     User findById(String id);
 
+    List<User> findBySalaryGreaterThanOrEqual(float salary);
+
     User updateById(String id, User user);
 
     void deleteById(String id);

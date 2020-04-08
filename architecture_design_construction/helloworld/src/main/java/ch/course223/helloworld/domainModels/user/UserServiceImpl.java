@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -37,10 +38,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).get();
     }
 
+    @Override
+    public List<User> findBySalaryGreaterThanOrEqual(float salary) {
+        return userRepository.findBySalaryGraterThanOrEqual(salary);
+    }
+
     // The logic for updating an existing user with a given id and data
     @Override
     public User updateById(String id, User user) {
-        if(userRepository.existsById(id)) {
+        if (userRepository.existsById(id)) {
             user.setId(id);
             userRepository.save(user);
 
